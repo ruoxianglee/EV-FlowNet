@@ -1,0 +1,25 @@
+EVFlowNet
+    - loss
+    - model
+        - basic_layers
+
+get_loader
+    - read_file_paths
+    - EventDataDecoder
+        - decoder
+
+
+Loss（所有的loss加到一起 -> total loss）
+(1)photometric loss:
+    the flow is used to warp the second image to the first image using bilinear sampling
+    the photometric loss aims to minimize the difference in intensity between the warped second image and the first image
+
+(2)smoothness loss:
+    Works as a regularizer term to avoid the aperture problem.
+    aims to regularize the output flow by minimizing the difference in flow between neighbouring pixels horizontally,
+        vertically and diagonally.
+
+(3)weight decay loss
+
+
+Event Image如何构建的啊？

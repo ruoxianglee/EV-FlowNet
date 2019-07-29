@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf-8
 import tensorflow as tf
 
 def build_resnet_block(input_res, channelsout, is_training, data_format,
@@ -51,6 +52,7 @@ Similar operation to a transposed convolution, but avoids checkerboard artifacts
 def upsample_conv2d(conv, name=None, channelsout=64, ksize=3, init_factor=0.1,
                     do_batch_norm=False, is_training=True, data_format=None):
     if data_format == 'channels_first':
+        #   原四维的结构[0 1 2 3]，进行变换[0 2 3 1]，https://blog.csdn.net/m0_37393514/article/details/82259370
         conv = tf.transpose(conv, [0,2,3,1])
         shape = tf.shape(conv)
         conv = tf.image.resize_images(conv, size=[shape[1]*2, shape[2]*2],

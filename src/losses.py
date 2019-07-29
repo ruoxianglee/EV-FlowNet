@@ -1,10 +1,12 @@
 #!/usr/bin/env python
+# coding=utf-8
 import tensorflow as tf
 
 """
 Generates a prediction of an image given the optical flow, as in Spatial Transformer Networks.
 """
 def warp_images_with_flow(images, flow):
+    # flow shape [height, width]
     height  = tf.shape(flow)[1]
     width = tf.shape(flow)[2]
     flow_x,flow_y = tf.split(flow,[1,1],axis = 3)
@@ -21,7 +23,10 @@ def warp_images_with_flow(images, flow):
 Robust Charbonnier loss, as defined in equation (4) of the paper.
 """
 def charbonnier_loss(delta, alpha=0.45, epsilon=1e-3):
-    loss = tf.reduce_mean(tf.pow(tf.square(delta)+tf.square(epsilon), alpha))
+    # 计算张量tensor沿着指定的数轴（tensor的某一维度）上的的平均值，主要用作降维或者计算tensor（图像）的平均值
+    # https://blog.csdn.net/dcrmg/article/details/79797826
+    loss = tf.reduce_mean(tf.pow(tf.square(delta)+tf.square(epsilon), alpha))   # 计算所有元素的均值，并降维
+
     return loss
 
 """
